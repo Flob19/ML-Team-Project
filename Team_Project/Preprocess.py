@@ -50,6 +50,10 @@ df_hourly = (
            wind_speed_kmh=("wind_speed_kmh", "mean"))
 )
 
+print("Valeurs manquantes après fusion :")
+print(df_merged_tx.isna().sum())
+
+
 df_hourly.to_excel(out_hourly_fp, index=False)
 print("Klart! Skapade:")
 print(" -", out_tx_fp)

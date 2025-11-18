@@ -1,0 +1,50 @@
+feature,mean_abs_shap
+product_category_Tea,0.7262109031158892
+product_category_Coffee,0.5805921293264975
+product_id,0.2501453266361482
+product_category_Bakery,0.2206994898462712
+product_category_Coffee beans,0.15243808086671953
+store_location_Astoria,0.13129722891858156
+product_category_Flavours,0.11855370820224569
+store_location_Lower Manhattan,0.11684438301155026
+product_category_Drinking Chocolate,0.09341195377580207
+product_type_Hot chocolate,0.09115060884214482
+product_type_Brewed Chai tea,0.08954458533490683
+product_type_Gourmet brewed coffee,0.08775774111830699
+product_type_Brewed Black tea,0.08251122310933535
+product_category_Branded,0.07186674604645676
+product_type_Clothing,0.06622622397771853
+product_type_Brewed herbal tea,0.06375377974291284
+product_type_Regular syrup,0.06347410438364409
+store_location_Hell's Kitchen,0.05522361927381774
+product_type_Premium brewed coffee,0.05258564139220291
+product_type_Barista Espresso,0.052507796677938895
+product_type_Pastry,0.03961700676311955
+product_type_Drip coffee,0.03800684908792864
+product_type_Scone,0.03678013366106827
+rain_mm,0.031153300449859655
+product_type_Brewed Green tea,0.02959492114303273
+store_id,0.026447452684117825
+snow_cm,0.025517193717909784
+product_type_Biscotti,0.025500723048828534
+product_type_Sugar free syrup,0.02276382790767757
+product_category_Loose Tea,0.022725880492558446
+transaction_qty,0.022058060974531096
+cloud_cover_pct,0.020812272955111056
+temperature_C,0.02059636710137587
+product_type_Organic brewed coffee,0.015932287028981928
+product_type_Black tea,0.013611383999772506
+product_type_Housewares,0.01218826772639759
+wind_speed_kmh,0.011683022311517284
+product_type_Chai tea,0.011327481780467576
+product_type_Organic Beans,0.010150366078064268
+product_type_Herbal tea,0.0
+product_category_Packaged Chocolate,0.0
+product_type_House blend Beans,0.0
+product_type_Organic Chocolate,0.0
+product_type_Green tea,0.0
+product_type_Green beans,0.0
+product_type_Premium Beans,0.0
+product_type_Gourmet Beans,0.0
+product_type_Espresso Beans,0.0
+product_type_Drinking Chocolate,0.0

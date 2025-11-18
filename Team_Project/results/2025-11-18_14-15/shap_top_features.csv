@@ -1,0 +1,50 @@
+feature,mean_abs_shap
+product_category_Tea,1.3188089505726055
+product_category_Coffee,0.9893051133814269
+product_id,0.5406780284013842
+product_category_Bakery,0.4527906347435913
+product_category_Coffee beans,0.1556923167667763
+product_category_Flavours,0.14923523226295965
+store_location_Lower Manhattan,0.14193636956412917
+product_type_Hot chocolate,0.11826995483290988
+store_location_Astoria,0.11308663172962741
+product_category_Drinking Chocolate,0.11176968693603305
+product_type_Brewed Black tea,0.1086429219407896
+store_location_Hell's Kitchen,0.09746669171329259
+product_type_Brewed herbal tea,0.08503332699306737
+product_type_Brewed Chai tea,0.08500080266787817
+product_type_Scone,0.0826675572065847
+product_type_Regular syrup,0.08198831778913634
+product_type_Pastry,0.06404972480032892
+product_type_Barista Espresso,0.06172532433298906
+product_category_Branded,0.056406106828606806
+product_type_Sugar free syrup,0.05427271725612173
+product_type_Clothing,0.054078177487532485
+product_type_Organic brewed coffee,0.053589682197625395
+product_type_Premium brewed coffee,0.04651575393581675
+product_type_Biscotti,0.04624130511020983
+product_type_Gourmet brewed coffee,0.04446479593827033
+snow_cm,0.04173292059619435
+transaction_qty,0.04158306796278898
+product_type_Drip coffee,0.040077997394826745
+product_type_Housewares,0.03875672754549725
+product_type_Organic Chocolate,0.034235114824510686
+cloud_cover_pct,0.03211221843874683
+product_type_Brewed Green tea,0.032089483226706385
+rain_mm,0.029175074190891083
+temperature_C,0.029172503014341225
+store_id,0.027561415430234812
+wind_speed_kmh,0.024922343546193756
+product_category_Packaged Chocolate,0.02171408240361938
+product_type_House blend Beans,0.00457149707825635
+product_category_Loose Tea,0.00228554978443795
+product_type_Herbal tea,0.0
+product_type_Green tea,0.0
+product_type_Organic Beans,0.0
+product_type_Gourmet Beans,0.0
+product_type_Espresso Beans,0.0
+product_type_Drinking Chocolate,0.0
+product_type_Premium Beans,0.0
+product_type_Chai tea,0.0
+product_type_Black tea,0.0
+product_type_Green beans,0.0
