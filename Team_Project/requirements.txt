@@ -3,3 +3,5 @@ openpyxl
 numpy
 scikit-learn
 matplotlib
+joblib
+requests
