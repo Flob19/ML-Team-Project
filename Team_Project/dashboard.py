@@ -9,6 +9,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import requests
 import streamlit as st
 from sklearn.ensemble import RandomForestRegressor
@@ -22,6 +24,7 @@ from sklearn.metrics import (
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
 
 
 ROOT = Path(__file__).resolve().parent
@@ -170,6 +173,7 @@ def train_models(X_train, y_train, model_type="rf"):
     else:
         model = Pipeline(
             [
+                ("imputer", SimpleImputer(strategy="median")),
                 ("scaler", StandardScaler()),
                 ("regressor", LinearRegression()),
             ]
@@ -257,10 +261,11 @@ def prepare_category_models():
             X, y, test_size=0.2, shuffle=False, random_state=42
         )
         model = train_models(X_train, y_train, "rf")
-        metrics[category] = evaluate(model, X_train, y_train, X_test, y_test)
+        cat_metrics = evaluate(model, X_train, y_train, X_test, y_test)
+        metrics[category] = cat_metrics
         history_cols = ["hour", "qty"] + cafe_cols
         histories[category] = cat_df[history_cols].rename(columns={"qty": "orders"})
-        models[category] = {"model": model}
+        models[category] = {"model": model, "metrics": cat_metrics}
 
     return models, histories, metrics, feats
 
@@ -318,14 +323,10 @@ def autoregressive_forecast(
     for i in range(horizon_hours):
         weather_row = weather_df.iloc[i]
         last_row = hist.iloc[-1]
-        recent_window = hist[hist["hour"] > weather_row["hour"] - pd.Timedelta(hours=24)]
-        if len(recent_window) == 0:
-            recent_window = hist.tail(24)
+        recent_window = hist.tail(24)
         qty_mean_24h = recent_window["orders"].mean()
         qty_std_24h = recent_window["orders"].std()
-        qty_mean_7d = (
-            hist[hist["hour"] > weather_row["hour"] - pd.Timedelta(days=7)]["orders"]
-        ).mean()
+        qty_mean_7d = hist.tail(168)["orders"].mean() if len(hist) >= 168 else hist["orders"].mean()
 
         feature_row = {
             "temperature_C": weather_row["temperature_C"],
@@ -492,27 +493,16 @@ def main():
 
     forecast["pred_orders"] = forecast["pred_qty"]
     peak_hour = forecast.loc[forecast["pred_orders"].idxmax()]
-    todays_forecast = forecast.head(24)["pred_orders"].sum()
-    actual_last_week = history.tail(24 * 7)["orders"].sum()
-    trend = (
-        ((forecast.head(24 * 7)["pred_orders"].sum() - actual_last_week) / actual_last_week) * 100
-        if actual_last_week > 0
-        else 0
-    )
+    period_forecast = forecast["pred_orders"].sum()
+    avg_per_hour = forecast["pred_orders"].mean()
+    
     accuracy = selected_model.get("metrics", {}).get("test", {}).get("r2", 0) * 100
 
     col1, col2, col3, col4 = st.columns(4)
-    kpi_cards(col1, "Today's Forecast", f"{todays_forecast:.0f}", delta=trend)
+    kpi_cards(col1, "Period's Forecast", f"{period_forecast:.0f}", f"Total for {horizon}h")
     kpi_cards(col2, "Peak Hour", peak_hour["hour"].strftime("%a %H:%M"), f"{peak_hour['pred_orders']:.0f} orders expected")
-    kpi_cards(col3, "Weekly Trend", f"{trend:+.1f}%", "vs last week")
+    kpi_cards(col3, "Avg per Hour", f"{avg_per_hour:.1f}", "Average orders/hour")
     kpi_cards(col4, "Model Accuracy", f"{accuracy:.1f}%", model_choice)
-
-    weather_now = weather_df.iloc[0]
-    col5, col6, col7, col8 = st.columns(4)
-    kpi_cards(col5, "Temperature", f"{weather_now['temperature_C']:.1f}°C")
-    kpi_cards(col6, "Rain", f"{weather_now['rain_mm']:.1f} mm")
-    kpi_cards(col7, "Cloud Cover", f"{weather_now['cloud_cover_pct']:.0f}%")
-    kpi_cards(col8, "Wind Speed", f"{weather_now['wind_speed_kmh']:.1f} km/h")
 
     st.subheader("Order Forecast")
     chart = px.line(
@@ -525,8 +515,54 @@ def main():
     )
     st.plotly_chart(chart, use_container_width=True)
 
+    st.subheader("Weather Forecast")
+    weather_forecast_df = weather_df.head(horizon).copy()
+    
+    fig_weather = make_subplots(
+        rows=2, cols=2,
+        subplot_titles=("Temperature (°C)", "Rain (mm)", "Cloud Cover (%)", "Wind Speed (km/h)"),
+        vertical_spacing=0.12,
+        horizontal_spacing=0.1
+    )
+    
+    fig_weather.add_trace(
+        go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["temperature_C"], 
+                  name="Temperature", line=dict(color="red")),
+        row=1, col=1
+    )
+    fig_weather.add_trace(
+        go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["rain_mm"], 
+                  name="Rain", line=dict(color="blue")),
+        row=1, col=2
+    )
+    fig_weather.add_trace(
+        go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["cloud_cover_pct"], 
+                  name="Cloud Cover", line=dict(color="gray")),
+        row=2, col=1
+    )
+    fig_weather.add_trace(
+        go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["wind_speed_kmh"], 
+                  name="Wind Speed", line=dict(color="green")),
+        row=2, col=2
+    )
+    
+    fig_weather.update_xaxes(title_text="Date", row=2, col=1)
+    fig_weather.update_xaxes(title_text="Date", row=2, col=2)
+    fig_weather.update_yaxes(title_text="°C", row=1, col=1)
+    fig_weather.update_yaxes(title_text="mm", row=1, col=2)
+    fig_weather.update_yaxes(title_text="%", row=2, col=1)
+    fig_weather.update_yaxes(title_text="km/h", row=2, col=2)
+    
+    fig_weather.update_layout(
+        height=600,
+        title_text=f"Weather forecast for next {horizon}h",
+        showlegend=False
+    )
+    st.plotly_chart(fig_weather, use_container_width=True)
+
     st.subheader("Manual Prediction")
     cafes = [col.replace("cafe_", "") for col in feature_set if col.startswith("cafe_")]
+    weather_now = weather_df.iloc[0]
     with st.form("manual_prediction_form"):
         c1, c2, c3 = st.columns(3)
         temperature = c1.number_input("Temperature (°C)", value=float(weather_now["temperature_C"]))
