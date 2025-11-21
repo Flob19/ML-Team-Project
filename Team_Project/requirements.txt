@@ -3,5 +3,8 @@ openpyxl
 numpy
 scikit-learn
 matplotlib
+streamlit
+plotly
+requests
 joblib
 requests
