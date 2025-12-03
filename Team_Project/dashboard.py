@@ -25,6 +25,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
+from sklearn.neural_network import MLPRegressor
+from sklearn.model_selection import TimeSeriesSplit, RandomizedSearchCV
+
+
 
 
 ROOT = Path(__file__).resolve().parent
@@ -159,7 +163,6 @@ def feature_columns(df: pd.DataFrame):
     cafe_cols = [col for col in df.columns if col.startswith("cafe_")]
     return BASE_FEATURES + cafe_cols
 
-
 def train_models(X_train, y_train, model_type="rf"):
     if model_type == "rf":
         model = RandomForestRegressor(
@@ -170,7 +173,10 @@ def train_models(X_train, y_train, model_type="rf"):
             random_state=42,
             n_jobs=-1,
         )
-    else:
+        model.fit(X_train, y_train)
+        return model
+
+    elif model_type == "lr":
         model = Pipeline(
             [
                 ("imputer", SimpleImputer(strategy="median")),
@@ -178,8 +184,64 @@ def train_models(X_train, y_train, model_type="rf"):
                 ("regressor", LinearRegression()),
             ]
         )
-    model.fit(X_train, y_train)
-    return model
+        model.fit(X_train, y_train)
+        return model
+
+    elif model_type == "mlp":  
+        base_mlp = MLPRegressor(
+            hidden_layer_sizes=(128, 64, 32),
+            activation="relu",
+            solver="adam",
+            learning_rate="adaptive",
+            learning_rate_init=1e-3,
+            max_iter=500,
+            random_state=42,
+            alpha=1e-4,            
+            batch_size=64,
+            early_stopping=True,   
+            n_iter_no_change=10,
+            validation_fraction=0.15,
+            verbose=True,
+        )
+
+        pipe = Pipeline(
+            [
+                ("imputer", SimpleImputer(strategy="median")),
+                ("scaler", StandardScaler()),
+                ("mlp", base_mlp),
+            ]
+        )
+        param_dist = {
+            "mlp__hidden_layer_sizes": [
+                (64, 64),
+                (128, 64),
+                (128, 64, 32),
+            ],
+            "mlp__alpha": [1e-5, 1e-4, 1e-3],
+            "mlp__learning_rate_init": [1e-3, 5e-4, 1e-4],
+            "mlp__batch_size": [32, 64, 128],
+        }
+
+        tscv = TimeSeriesSplit(n_splits=3)
+
+        search = RandomizedSearchCV(
+            pipe,
+            param_distributions=param_dist,
+            n_iter=10,                         
+            cv=tscv,
+            scoring="neg_mean_absolute_error",
+            n_jobs=-1,
+            random_state=42,
+            verbose=1,
+        )
+
+        search.fit(X_train, y_train)
+        print("🔧 Best MLP params:", search.best_params_)
+        return search.best_estimator_
+
+    else:
+        raise ValueError(f"Unknown model_type: {model_type}")
+
 
 
 def evaluate(model, X_train, y_train, X_test, y_test):
@@ -216,23 +278,29 @@ def prepare_total_models():
         X, y, test_size=0.2, shuffle=False, random_state=0
     )
 
-    rf_model = train_models(X_train, y_train, "rf")
+    
+    rf_model  = train_models(X_train, y_train, "rf")
     lin_model = train_models(X_train, y_train, "lr")
+    mlp_model = train_models(X_train, y_train, "mlp")   
 
-    rf_metrics = evaluate(rf_model, X_train, y_train, X_test, y_test)
-    lr_metrics = evaluate(lin_model, X_train, y_train, X_test, y_test)
+    
+    rf_metrics  = evaluate(rf_model,  X_train, y_train, X_test, y_test)
+    lr_metrics  = evaluate(lin_model, X_train, y_train, X_test, y_test)
+    mlp_metrics = evaluate(mlp_model, X_train, y_train, X_test, y_test)
 
     history_cols = ["hour", "qty"] + [c for c in feats if c.startswith("cafe_")]
     history = df_hourly[history_cols].rename(columns={"qty": "orders"})
 
     return (
         {
-            "Random Forest": {"model": rf_model, "metrics": rf_metrics},
-            "Linear Regression": {"model": lin_model, "metrics": lr_metrics},
+            "Random Forest":       {"model": rf_model,  "metrics": rf_metrics},
+            "Linear Regression":   {"model": lin_model, "metrics": lr_metrics},
+            "Neural Network (MLP)": {"model": mlp_model, "metrics": mlp_metrics}, 
         },
         feats,
         history,
     )
+
 
 
 @st.cache_resource(show_spinner=False)
@@ -521,7 +589,7 @@ def main():
     fig_weather = make_subplots(
         rows=2, cols=2,
         subplot_titles=("Temperature (°C)", "Rain (mm)", "Cloud Cover (%)", "Wind Speed (km/h)"),
-        vertical_spacing=0.12,
+        vertical_spacing=0.2,
         horizontal_spacing=0.1
     )
     
@@ -605,7 +673,7 @@ def main():
 
     st.divider()
     st.markdown(
-        "Built with Streamlit · Weather powered by Open-Meteo · Models trained on Random Forest and Linear Regression."
+        "Built with Streamlit · Weather powered by Open-Meteo · Models trained on Random Forest, MLP and Linear Regression."
     )
 
 
