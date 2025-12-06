@@ -16,7 +16,7 @@ import joblib
 from pathlib import Path
 import matplotlib.pyplot as plt
 from sklearn.ensemble import RandomForestRegressor
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, TimeSeriesSplit, GridSearchCV
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from openpyxl import load_workbook
 
@@ -212,16 +212,35 @@ for category in categories:
         X, y, test_size=0.2, shuffle=False, random_state=42
     )
     
-    rf = RandomForestRegressor(
-        n_estimators=200,
-        max_depth=8,
-        min_samples_split=10,
-        min_samples_leaf=5,
+    print(f"  Running grid search for {category}...")
+    tscv = TimeSeriesSplit(n_splits=3)
+    
+    param_grid = {
+        "n_estimators": [100, 200, 300],
+        "max_depth": [6, 8, 10],
+        "min_samples_split": [5, 10, 15],
+        "min_samples_leaf": [2, 4, 5]
+    }
+    
+    base_rf = RandomForestRegressor(
         random_state=42,
         n_jobs=-1
     )
     
-    rf.fit(X_train, y_train)
+    grid = GridSearchCV(
+        estimator=base_rf,
+        param_grid=param_grid,
+        cv=tscv,
+        scoring="neg_mean_absolute_error",
+        n_jobs=-1,
+        verbose=0
+    )
+    
+    grid.fit(X_train, y_train)
+    rf = grid.best_estimator_
+    
+    print(f"  Best parameters: {grid.best_params_}")
+    print(f"  Best CV score (MAE): {-grid.best_score_:.2f}")
     models[category] = rf
     
     y_pred = rf.predict(X_test)
