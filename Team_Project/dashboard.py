@@ -508,7 +508,7 @@ def main():
     )
 
     st.title("Café Order Forecaster")
-    st.caption("ML-powered demand prediction with weather-aware Random Forest & Linear Regression models.")
+    st.caption("ML-powered demand prediction with weather-aware Random Forest, MLP & Linear Regression models.")
 
     models, feature_cols, total_history = prepare_total_models()
     category_models, category_histories, category_metrics, category_features = prepare_category_models()
