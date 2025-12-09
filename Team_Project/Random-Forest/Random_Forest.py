@@ -38,11 +38,6 @@ df['hour_of_day'] = df['hour'].dt.hour
 df['day_of_week'] = df['hour'].dt.dayofweek
 df['is_weekend'] = df['day_of_week'].isin([5,6]).astype(int)
 
-df['hour_sin'] = np.sin(2 * np.pi * df['hour_of_day'] / 24)
-df['hour_cos'] = np.cos(2 * np.pi * df['hour_of_day'] / 24)
-df['day_sin'] = np.sin(2 * np.pi * df['day_of_week'] / 7)
-df['day_cos'] = np.cos(2 * np.pi * df['day_of_week'] / 7)
-
 df['is_morning'] = df['hour_of_day'].isin([7,8,9,10,11]).astype(int)
 df['is_afternoon'] = df['hour_of_day'].isin([12,13,14,15,16,17]).astype(int)
 df['is_evening'] = df['hour_of_day'].isin([18,19,20,21,22]).astype(int)
@@ -60,7 +55,6 @@ cafe_features = [col for col in df.columns if col.startswith('cafe_')]
 features = [
     "temperature_C", "rain_mm", "cloud_cover_pct", "wind_speed_kmh",
     "hour_of_day", "day_of_week", "is_weekend",
-    "hour_sin", "hour_cos", "day_sin", "day_cos",
     "is_morning", "is_afternoon", "is_evening", "is_night",
     "qty_lag_1h", "qty_lag_24h", "qty_mean_24h", "qty_std_24h", "qty_mean_7d"
 ] + cafe_features
@@ -78,15 +72,15 @@ print(X_train.head(5))
 print("\nFirst 5 rows in test data:")
 print(X_test.head(5))
 
-RUN_GRID_SEARCH = False
+RUN_GRID_SEARCH = True
 
 if RUN_GRID_SEARCH:
     print("\n=== HYPERPARAMETER TUNING ===")
     tscv = TimeSeriesSplit(n_splits=5)
     
     param_grid = {
-        "n_estimators": [200, 300],
-        "max_depth": [5, 6, 7, 8, 10],
+        "n_estimators": [200, 300, 400],
+        "max_depth": [8, 10, 12, 15],
         "min_samples_split": [5, 10, 15],
         "min_samples_leaf": [2, 4, 5]
     }
@@ -115,21 +109,21 @@ if RUN_GRID_SEARCH:
 else:
     print("\n=== USING PREVIOUSLY OPTIMIZED PARAMETERS ===")
     best_params = {
-        "n_estimators": 300,
+        "n_estimators": 400,
         "max_depth": 12,
-        "min_samples_split": 10,
+        "min_samples_split": 5,
         "min_samples_leaf": 4
     }
     print(f"Parameters: {best_params}")
-rf = RandomForestRegressor(
+    rf = RandomForestRegressor(
         n_estimators=best_params["n_estimators"],
         max_depth=best_params["max_depth"],
         min_samples_split=best_params["min_samples_split"],
         min_samples_leaf=best_params["min_samples_leaf"],
-    random_state=42,
-    n_jobs=-1
-)
-rf.fit(X_train, y_train)
+        random_state=42,
+        n_jobs=-1
+    )
+    rf.fit(X_train, y_train)
 
 model_path = Path("rf_orders_model.pkl")
 joblib.dump(rf, model_path)
