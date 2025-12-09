@@ -38,10 +38,6 @@ BASE_FEATURES = [
     "hour_of_day",
     "day_of_week",
     "is_weekend",
-    "hour_sin",
-    "hour_cos",
-    "day_sin",
-    "day_cos",
     "is_morning",
     "is_afternoon",
     "is_evening",
@@ -117,10 +113,6 @@ def add_time_features(df: pd.DataFrame) -> pd.DataFrame:
     df["hour_of_day"] = df["hour"].dt.hour
     df["day_of_week"] = df["hour"].dt.dayofweek
     df["is_weekend"] = df["day_of_week"].isin([5, 6]).astype(int)
-    df["hour_sin"] = np.sin(2 * np.pi * df["hour_of_day"] / 24)
-    df["hour_cos"] = np.cos(2 * np.pi * df["hour_of_day"] / 24)
-    df["day_sin"] = np.sin(2 * np.pi * df["day_of_week"] / 7)
-    df["day_cos"] = np.cos(2 * np.pi * df["day_of_week"] / 7)
     df["is_morning"] = df["hour_of_day"].between(7, 11).astype(int)
     df["is_afternoon"] = df["hour_of_day"].between(12, 17).astype(int)
     df["is_evening"] = df["hour_of_day"].between(18, 22).astype(int)
@@ -163,9 +155,9 @@ def feature_columns(df: pd.DataFrame):
 def train_models(X_train, y_train, model_type="rf"):
     if model_type == "rf":
         model = RandomForestRegressor(
-            n_estimators=300,
+            n_estimators=400,
             max_depth=12,
-            min_samples_split=10,
+            min_samples_split=5,
             min_samples_leaf=4,
             random_state=42,
             n_jobs=-1,
@@ -336,10 +328,6 @@ def autoregressive_forecast(
             "hour_of_day": weather_row["hour_of_day"],
             "day_of_week": weather_row["day_of_week"],
             "is_weekend": weather_row["is_weekend"],
-            "hour_sin": weather_row["hour_sin"],
-            "hour_cos": weather_row["hour_cos"],
-            "day_sin": weather_row["day_sin"],
-            "day_cos": weather_row["day_cos"],
             "is_morning": weather_row["is_morning"],
             "is_afternoon": weather_row["is_afternoon"],
             "is_evening": weather_row["is_evening"],
@@ -378,10 +366,6 @@ def build_manual_feature(
         "hour_of_day": hour_of_day,
         "day_of_week": day_of_week,
         "is_weekend": int(is_weekend),
-        "hour_sin": math.sin(2 * math.pi * hour_of_day / 24),
-        "hour_cos": math.cos(2 * math.pi * hour_of_day / 24),
-        "day_sin": math.sin(2 * math.pi * day_of_week / 7),
-        "day_cos": math.cos(2 * math.pi * day_of_week / 7),
         "is_morning": int(7 <= hour_of_day <= 11),
         "is_afternoon": int(12 <= hour_of_day <= 17),
         "is_evening": int(18 <= hour_of_day <= 22),
