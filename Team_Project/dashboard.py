@@ -26,6 +26,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.impute import SimpleImputer
 from sklearn.neural_network import MLPRegressor
+from sklearn.compose import TransformedTargetRegressor
 from sklearn.model_selection import TimeSeriesSplit, RandomizedSearchCV
 
 
@@ -187,18 +188,19 @@ def train_models(X_train, y_train, model_type="rf"):
         model.fit(X_train, y_train)
         return model
 
-    elif model_type == "mlp":  
+    elif model_type == "mlp":
+        # Base MLP inside a preprocessing pipeline (no target transform)
         base_mlp = MLPRegressor(
-            hidden_layer_sizes=(128, 64, 32),
+            hidden_layer_sizes=(64, 32),     # smaller network = less overfitting
             activation="relu",
             solver="adam",
             learning_rate="adaptive",
             learning_rate_init=1e-3,
-            max_iter=500,
+            max_iter=600,
             random_state=42,
-            alpha=1e-4,            
+            alpha=1e-3,                      # stronger L2 regularisation
             batch_size=64,
-            early_stopping=True,   
+            early_stopping=True,
             n_iter_no_change=10,
             validation_fraction=0.15,
             verbose=True,
@@ -211,15 +213,17 @@ def train_models(X_train, y_train, model_type="rf"):
                 ("mlp", base_mlp),
             ]
         )
+
+        # Hyper-parameters for Randomised Search
         param_dist = {
             "mlp__hidden_layer_sizes": [
+                (64, 32),
                 (64, 64),
                 (128, 64),
-                (128, 64, 32),
             ],
-            "mlp__alpha": [1e-5, 1e-4, 1e-3],
-            "mlp__learning_rate_init": [1e-3, 5e-4, 1e-4],
-            "mlp__batch_size": [32, 64, 128],
+            "mlp__alpha": np.logspace(-4, -2, 3),          # [1e-4, 1e-3, 1e-2]
+            "mlp__learning_rate_init": [1e-3, 5e-4],
+            "mlp__batch_size": [32, 64],
         }
 
         tscv = TimeSeriesSplit(n_splits=3)
@@ -227,7 +231,7 @@ def train_models(X_train, y_train, model_type="rf"):
         search = RandomizedSearchCV(
             pipe,
             param_distributions=param_dist,
-            n_iter=10,                         
+            n_iter=10,
             cv=tscv,
             scoring="neg_mean_absolute_error",
             n_jobs=-1,
@@ -236,8 +240,9 @@ def train_models(X_train, y_train, model_type="rf"):
         )
 
         search.fit(X_train, y_train)
-        print("🔧 Best MLP params:", search.best_params_)
+        print("Best MLP params:", search.best_params_)
         return search.best_estimator_
+
 
     else:
         raise ValueError(f"Unknown model_type: {model_type}")
@@ -425,7 +430,8 @@ def autoregressive_forecast(
         row_df = pd.DataFrame([feature_row])
         row_df = ensure_feature_columns(row_df, feature_cols)
         y_hat = float(model.predict(row_df)[0])
-        y_hat = max(0, y_hat)
+        y_hat = max(0.0, y_hat)
+        y_hat = min(y_hat, 1e4)
         preds.append({"hour": weather_row["hour"], "pred_qty": y_hat})
         new_hist = {"hour": weather_row["hour"], "orders": y_hat}
         for col in cafe_cols:
