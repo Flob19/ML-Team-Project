@@ -1,0 +1,13 @@
+\chapter{Evaluation and Results}
+\label{sec:concepts}
+
+\section{Experimental Results}
+Our evaluation focused on accuracy ($R^2$ score) on the test dataset. The results clearly favor ensemble methods for this specific time-series task:
+\begin{itemize}
+    \item \textbf{Random Forest:} 72.8\% Accuracy – The best performing model.
+    \item \textbf{Neural Network (MLP):} 72.7\% Accuracy – Highly competitive results.
+    \item \textbf{Linear Regression:} 56.6\% Accuracy – Lacked the complexity to capture weather-driven volatility.
+\end{itemize}
+
+\section{Analysis of Peak Hours}
+The model successfully identified peak demand periods, such as Wednesday at 10:00 AM, with an expected volume of 254 orders. This enables precise staffing adjustments during high-traffic windows.

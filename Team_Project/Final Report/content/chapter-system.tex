@@ -1,0 +1,16 @@
+\chapter{System Architecture}
+\label{sec:system}
+
+\section{Data Pipeline and Preprocessing}
+We utilized a Python-based preprocessing script to clean raw Excel files. Sales records were aggregated into hourly buckets to match the weather data frequency. We engineered several temporal features, including "hour of day", "day of week", and indicators for weekends and specific shifts (Morning, Afternoon, etc.). Furthermore, lag features like the previous hour's quantity ($qty\_lag\_1h$) were included to capture temporal dependencies.
+
+\section{Machine Learning Models}
+We chose a comparative approach to evaluate different complexities of models:
+\begin{itemize}
+    \item \textbf{Linear Regression:} Implemented as a baseline to identify linear trends in demand.
+    \item \textbf{Random Forest Regressor:} An ensemble method with 400 estimators, chosen for its ability to handle non-linear relationships and feature interactions.
+    \item \textbf{Multilayer Perceptron (MLP):} A deep learning approach using three hidden layers (128, 64, 32) with an Adam solver and adaptive learning rates.
+\end{itemize}
+
+\section{Dashboard Deployment}
+The system is integrated into a Streamlit application. It features a sidebar for "Forecast Controls" where users can toggle between models and adjust the forecast horizon from 24 hours to 7 days.
