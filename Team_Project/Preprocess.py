@@ -54,3 +54,6 @@ df_hourly.to_excel(out_hourly_fp, index=False)
 print("Klart! Skapade:")
 print(" -", out_tx_fp)
 print(" -", out_hourly_fp)
+
+df_weather.to_csv(DATA / "NY_weather_data.csv", index=False)
+print("Saved cleaned weather data to NY_weather_data.csv")

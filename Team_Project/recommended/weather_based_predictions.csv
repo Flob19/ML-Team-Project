@@ -1,0 +1,649 @@
+timestamp,weather_temp,weather_desc,product_category,predicted_product_detail
+2023-01-10 00:00:00,,,Tea,Peppermint Rg
+2023-01-10 00:00:00,,,Bakery,Jumbo Savory Scone
+2023-01-10 00:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-01-10 00:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 00:00:00,,,Coffee,Cappuccino Lg
+2023-01-10 00:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 00:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 00:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 00:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 01:00:00,,,Tea,Lemon Grass Rg
+2023-01-10 01:00:00,,,Bakery,Scottish Cream Scone 
+2023-01-10 01:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-01-10 01:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 01:00:00,,,Coffee,Cappuccino Lg
+2023-01-10 01:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 01:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 01:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 01:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 02:00:00,,,Tea,Lemon Grass Lg
+2023-01-10 02:00:00,,,Bakery,Ginger Scone
+2023-01-10 02:00:00,,,Drinking Chocolate,Dark chocolate Rg
+2023-01-10 02:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 02:00:00,,,Coffee,Cappuccino Lg
+2023-01-10 02:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 02:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 02:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 02:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 03:00:00,,,Tea,Peppermint Rg
+2023-01-10 03:00:00,,,Bakery,Jumbo Savory Scone
+2023-01-10 03:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-01-10 03:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 03:00:00,,,Coffee,Ouro Brasileiro shot
+2023-01-10 03:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 03:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 03:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 03:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 04:00:00,,,Tea,Lemon Grass Rg
+2023-01-10 04:00:00,,,Bakery,Ginger Scone
+2023-01-10 04:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-01-10 04:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 04:00:00,,,Coffee,Latte
+2023-01-10 04:00:00,,,Flavours,Spicy Eye Opener Chai
+2023-01-10 04:00:00,,,Loose Tea,Spicy Eye Opener Chai
+2023-01-10 04:00:00,,,Branded,Spicy Eye Opener Chai
+2023-01-10 04:00:00,,,Packaged Chocolate,Spicy Eye Opener Chai
+2023-01-10 05:00:00,,,Tea,Peppermint Rg
+2023-01-10 05:00:00,,,Bakery,Cranberry Scone
+2023-01-10 05:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-01-10 05:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 05:00:00,,,Coffee,Latte
+2023-01-10 05:00:00,,,Flavours,Spicy Eye Opener Chai
+2023-01-10 05:00:00,,,Loose Tea,Spicy Eye Opener Chai
+2023-01-10 05:00:00,,,Branded,Spicy Eye Opener Chai
+2023-01-10 05:00:00,,,Packaged Chocolate,Spicy Eye Opener Chai
+2023-01-10 06:00:00,,,Tea,Lemon Grass Lg
+2023-01-10 06:00:00,,,Bakery,Ginger Scone
+2023-01-10 06:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-01-10 06:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 06:00:00,,,Coffee,Latte
+2023-01-10 06:00:00,,,Flavours,Spicy Eye Opener Chai
+2023-01-10 06:00:00,,,Loose Tea,Spicy Eye Opener Chai
+2023-01-10 06:00:00,,,Branded,Spicy Eye Opener Chai
+2023-01-10 06:00:00,,,Packaged Chocolate,Spicy Eye Opener Chai
+2023-01-10 07:00:00,,,Tea,Peppermint Lg
+2023-01-10 07:00:00,,,Bakery,Ginger Scone
+2023-01-10 07:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-01-10 07:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 07:00:00,,,Coffee,Latte
+2023-01-10 07:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 07:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 07:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 07:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 08:00:00,,,Tea,Lemon Grass Lg
+2023-01-10 08:00:00,,,Bakery,Oatmeal Scone
+2023-01-10 08:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-01-10 08:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 08:00:00,,,Coffee,Latte Rg
+2023-01-10 08:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 08:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 08:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 08:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 09:00:00,,,Tea,Peppermint Lg
+2023-01-10 09:00:00,,,Bakery,Oatmeal Scone
+2023-01-10 09:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-01-10 09:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 09:00:00,,,Coffee,Cappuccino Lg
+2023-01-10 09:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 09:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 09:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 09:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 10:00:00,,,Tea,Peppermint Rg
+2023-01-10 10:00:00,,,Bakery,Cranberry Scone
+2023-01-10 10:00:00,,,Drinking Chocolate,Dark chocolate Rg
+2023-01-10 10:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 10:00:00,,,Coffee,Cappuccino
+2023-01-10 10:00:00,,,Flavours,Morning Sunrise Chai
+2023-01-10 10:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-01-10 10:00:00,,,Branded,Morning Sunrise Chai
+2023-01-10 10:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-01-10 11:00:00,,,Tea,Lemon Grass Rg
+2023-01-10 11:00:00,,,Bakery,Jumbo Savory Scone
+2023-01-10 11:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-01-10 11:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 11:00:00,,,Coffee,Ouro Brasileiro shot
+2023-01-10 11:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 11:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 11:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 11:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 12:00:00,,,Tea,Lemon Grass Rg
+2023-01-10 12:00:00,,,Bakery,Cranberry Scone
+2023-01-10 12:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-01-10 12:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 12:00:00,,,Coffee,Latte
+2023-01-10 12:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 12:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 12:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 12:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 13:00:00,,,Tea,Peppermint Lg
+2023-01-10 13:00:00,,,Bakery,Ginger Scone
+2023-01-10 13:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-01-10 13:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 13:00:00,,,Coffee,Espresso shot
+2023-01-10 13:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 13:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 13:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 13:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 14:00:00,,,Tea,Peppermint Rg
+2023-01-10 14:00:00,,,Bakery,Jumbo Savory Scone
+2023-01-10 14:00:00,,,Drinking Chocolate,Dark chocolate Rg
+2023-01-10 14:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 14:00:00,,,Coffee,Latte
+2023-01-10 14:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 14:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 14:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 14:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 15:00:00,,,Tea,Lemon Grass Rg
+2023-01-10 15:00:00,,,Bakery,Scottish Cream Scone 
+2023-01-10 15:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-01-10 15:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 15:00:00,,,Coffee,Latte
+2023-01-10 15:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 15:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 15:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 15:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 16:00:00,,,Tea,Lemon Grass Rg
+2023-01-10 16:00:00,,,Bakery,Jumbo Savory Scone
+2023-01-10 16:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-01-10 16:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 16:00:00,,,Coffee,Cappuccino Lg
+2023-01-10 16:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 16:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 16:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 16:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 17:00:00,,,Tea,Peppermint Lg
+2023-01-10 17:00:00,,,Bakery,Cranberry Scone
+2023-01-10 17:00:00,,,Drinking Chocolate,Dark chocolate Rg
+2023-01-10 17:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 17:00:00,,,Coffee,Latte
+2023-01-10 17:00:00,,,Flavours,Spicy Eye Opener Chai
+2023-01-10 17:00:00,,,Loose Tea,Spicy Eye Opener Chai
+2023-01-10 17:00:00,,,Branded,Spicy Eye Opener Chai
+2023-01-10 17:00:00,,,Packaged Chocolate,Spicy Eye Opener Chai
+2023-01-10 18:00:00,,,Tea,Peppermint Rg
+2023-01-10 18:00:00,,,Bakery,Cranberry Scone
+2023-01-10 18:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-01-10 18:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 18:00:00,,,Coffee,Espresso shot
+2023-01-10 18:00:00,,,Flavours,Spicy Eye Opener Chai
+2023-01-10 18:00:00,,,Loose Tea,Spicy Eye Opener Chai
+2023-01-10 18:00:00,,,Branded,Spicy Eye Opener Chai
+2023-01-10 18:00:00,,,Packaged Chocolate,Spicy Eye Opener Chai
+2023-01-10 19:00:00,,,Tea,Peppermint Lg
+2023-01-10 19:00:00,,,Bakery,Cranberry Scone
+2023-01-10 19:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-01-10 19:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 19:00:00,,,Coffee,Latte
+2023-01-10 19:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 19:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 19:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 19:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 20:00:00,,,Tea,Peppermint Lg
+2023-01-10 20:00:00,,,Bakery,Oatmeal Scone
+2023-01-10 20:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-01-10 20:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 20:00:00,,,Coffee,Cappuccino Lg
+2023-01-10 20:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 20:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 20:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 20:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 21:00:00,,,Tea,Peppermint Lg
+2023-01-10 21:00:00,,,Bakery,Cranberry Scone
+2023-01-10 21:00:00,,,Drinking Chocolate,Dark chocolate Rg
+2023-01-10 21:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 21:00:00,,,Coffee,Latte
+2023-01-10 21:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 21:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 21:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 21:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 22:00:00,,,Tea,Peppermint Lg
+2023-01-10 22:00:00,,,Bakery,Cranberry Scone
+2023-01-10 22:00:00,,,Drinking Chocolate,Dark chocolate Rg
+2023-01-10 22:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 22:00:00,,,Coffee,Latte
+2023-01-10 22:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 22:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 22:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 22:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-01-10 23:00:00,,,Tea,Peppermint Rg
+2023-01-10 23:00:00,,,Bakery,Ginger Scone
+2023-01-10 23:00:00,,,Drinking Chocolate,Dark chocolate Rg
+2023-01-10 23:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-01-10 23:00:00,,,Coffee,Latte Rg
+2023-01-10 23:00:00,,,Flavours,Traditional Blend Chai
+2023-01-10 23:00:00,,,Loose Tea,Traditional Blend Chai
+2023-01-10 23:00:00,,,Branded,Traditional Blend Chai
+2023-01-10 23:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-04-10 00:00:00,,,Tea,Peppermint Rg
+2023-04-10 00:00:00,,,Bakery,Cranberry Scone
+2023-04-10 00:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 00:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 00:00:00,,,Coffee,Espresso shot
+2023-04-10 00:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 00:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 00:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 00:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 01:00:00,,,Tea,Peppermint Rg
+2023-04-10 01:00:00,,,Bakery,Ginger Scone
+2023-04-10 01:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 01:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 01:00:00,,,Coffee,Latte
+2023-04-10 01:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 01:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 01:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 01:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 02:00:00,,,Tea,Peppermint Rg
+2023-04-10 02:00:00,,,Bakery,Cranberry Scone
+2023-04-10 02:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 02:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 02:00:00,,,Coffee,Espresso shot
+2023-04-10 02:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 02:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 02:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 02:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 03:00:00,,,Tea,Peppermint Rg
+2023-04-10 03:00:00,,,Bakery,Cranberry Scone
+2023-04-10 03:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 03:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 03:00:00,,,Coffee,Espresso shot
+2023-04-10 03:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 03:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 03:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 03:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 04:00:00,,,Tea,Peppermint Rg
+2023-04-10 04:00:00,,,Bakery,Cranberry Scone
+2023-04-10 04:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 04:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 04:00:00,,,Coffee,Espresso shot
+2023-04-10 04:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 04:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 04:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 04:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 05:00:00,,,Tea,Peppermint Rg
+2023-04-10 05:00:00,,,Bakery,Cranberry Scone
+2023-04-10 05:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 05:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 05:00:00,,,Coffee,Espresso shot
+2023-04-10 05:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 05:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 05:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 05:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 06:00:00,,,Tea,Peppermint Rg
+2023-04-10 06:00:00,,,Bakery,Ginger Scone
+2023-04-10 06:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-04-10 06:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 06:00:00,,,Coffee,Latte
+2023-04-10 06:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 06:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 06:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 06:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 07:00:00,,,Tea,Lemon Grass Rg
+2023-04-10 07:00:00,,,Bakery,Ginger Scone
+2023-04-10 07:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-04-10 07:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 07:00:00,,,Coffee,Ouro Brasileiro shot
+2023-04-10 07:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 07:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 07:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 07:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 08:00:00,,,Tea,Peppermint Lg
+2023-04-10 08:00:00,,,Bakery,Oatmeal Scone
+2023-04-10 08:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 08:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 08:00:00,,,Coffee,Latte Rg
+2023-04-10 08:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 08:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 08:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 08:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 09:00:00,,,Tea,Peppermint Lg
+2023-04-10 09:00:00,,,Bakery,Oatmeal Scone
+2023-04-10 09:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-04-10 09:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 09:00:00,,,Coffee,Latte
+2023-04-10 09:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 09:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 09:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 09:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 10:00:00,,,Tea,Peppermint Rg
+2023-04-10 10:00:00,,,Bakery,Scottish Cream Scone 
+2023-04-10 10:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 10:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 10:00:00,,,Coffee,Ouro Brasileiro shot
+2023-04-10 10:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 10:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 10:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 10:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 11:00:00,,,Tea,Lemon Grass Rg
+2023-04-10 11:00:00,,,Bakery,Jumbo Savory Scone
+2023-04-10 11:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-04-10 11:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 11:00:00,,,Coffee,Ouro Brasileiro shot
+2023-04-10 11:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 11:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 11:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 11:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 12:00:00,,,Tea,Lemon Grass Lg
+2023-04-10 12:00:00,,,Bakery,Jumbo Savory Scone
+2023-04-10 12:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-04-10 12:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 12:00:00,,,Coffee,Latte Rg
+2023-04-10 12:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 12:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 12:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 12:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 13:00:00,,,Tea,Lemon Grass Rg
+2023-04-10 13:00:00,,,Bakery,Ginger Scone
+2023-04-10 13:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-04-10 13:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 13:00:00,,,Coffee,Cappuccino Lg
+2023-04-10 13:00:00,,,Flavours,Traditional Blend Chai
+2023-04-10 13:00:00,,,Loose Tea,Traditional Blend Chai
+2023-04-10 13:00:00,,,Branded,Traditional Blend Chai
+2023-04-10 13:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-04-10 14:00:00,,,Tea,Lemon Grass Lg
+2023-04-10 14:00:00,,,Bakery,Cranberry Scone
+2023-04-10 14:00:00,,,Drinking Chocolate,Dark chocolate Rg
+2023-04-10 14:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 14:00:00,,,Coffee,Ouro Brasileiro shot
+2023-04-10 14:00:00,,,Flavours,Traditional Blend Chai
+2023-04-10 14:00:00,,,Loose Tea,Traditional Blend Chai
+2023-04-10 14:00:00,,,Branded,Traditional Blend Chai
+2023-04-10 14:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-04-10 15:00:00,,,Tea,Lemon Grass Rg
+2023-04-10 15:00:00,,,Bakery,Cranberry Scone
+2023-04-10 15:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-04-10 15:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 15:00:00,,,Coffee,Latte
+2023-04-10 15:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 15:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 15:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 15:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 16:00:00,,,Tea,Peppermint Lg
+2023-04-10 16:00:00,,,Bakery,Oatmeal Scone
+2023-04-10 16:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 16:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 16:00:00,,,Coffee,Latte
+2023-04-10 16:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 16:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 16:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 16:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 17:00:00,,,Tea,Peppermint Lg
+2023-04-10 17:00:00,,,Bakery,Oatmeal Scone
+2023-04-10 17:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-04-10 17:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 17:00:00,,,Coffee,Latte
+2023-04-10 17:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 17:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 17:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 17:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 18:00:00,,,Tea,Lemon Grass Rg
+2023-04-10 18:00:00,,,Bakery,Scottish Cream Scone 
+2023-04-10 18:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 18:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 18:00:00,,,Coffee,Cappuccino
+2023-04-10 18:00:00,,,Flavours,Spicy Eye Opener Chai
+2023-04-10 18:00:00,,,Loose Tea,Spicy Eye Opener Chai
+2023-04-10 18:00:00,,,Branded,Spicy Eye Opener Chai
+2023-04-10 18:00:00,,,Packaged Chocolate,Spicy Eye Opener Chai
+2023-04-10 19:00:00,,,Tea,Peppermint Rg
+2023-04-10 19:00:00,,,Bakery,Ginger Scone
+2023-04-10 19:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-04-10 19:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 19:00:00,,,Coffee,Ouro Brasileiro shot
+2023-04-10 19:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 19:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 19:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 19:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 20:00:00,,,Tea,Peppermint Lg
+2023-04-10 20:00:00,,,Bakery,Jumbo Savory Scone
+2023-04-10 20:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-04-10 20:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 20:00:00,,,Coffee,Cappuccino Lg
+2023-04-10 20:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 20:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 20:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 20:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 21:00:00,,,Tea,Peppermint Rg
+2023-04-10 21:00:00,,,Bakery,Ginger Scone
+2023-04-10 21:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-04-10 21:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 21:00:00,,,Coffee,Latte Rg
+2023-04-10 21:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 21:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 21:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 21:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 22:00:00,,,Tea,Peppermint Rg
+2023-04-10 22:00:00,,,Bakery,Cranberry Scone
+2023-04-10 22:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-04-10 22:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 22:00:00,,,Coffee,Espresso shot
+2023-04-10 22:00:00,,,Flavours,Morning Sunrise Chai
+2023-04-10 22:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-04-10 22:00:00,,,Branded,Morning Sunrise Chai
+2023-04-10 22:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-04-10 23:00:00,,,Tea,Peppermint Rg
+2023-04-10 23:00:00,,,Bakery,Cranberry Scone
+2023-04-10 23:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-04-10 23:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-04-10 23:00:00,,,Coffee,Cappuccino Lg
+2023-04-10 23:00:00,,,Flavours,Spicy Eye Opener Chai
+2023-04-10 23:00:00,,,Loose Tea,Spicy Eye Opener Chai
+2023-04-10 23:00:00,,,Branded,Spicy Eye Opener Chai
+2023-04-10 23:00:00,,,Packaged Chocolate,Spicy Eye Opener Chai
+2023-05-31 00:00:00,,,Tea,Peppermint Rg
+2023-05-31 00:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 00:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-05-31 00:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 00:00:00,,,Coffee,Ouro Brasileiro shot
+2023-05-31 00:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 00:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 00:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 00:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 01:00:00,,,Tea,Peppermint Rg
+2023-05-31 01:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 01:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-05-31 01:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 01:00:00,,,Coffee,Ouro Brasileiro shot
+2023-05-31 01:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 01:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 01:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 01:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 02:00:00,,,Tea,Peppermint Rg
+2023-05-31 02:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 02:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-05-31 02:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 02:00:00,,,Coffee,Ouro Brasileiro shot
+2023-05-31 02:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 02:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 02:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 02:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 03:00:00,,,Tea,Peppermint Lg
+2023-05-31 03:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 03:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-05-31 03:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 03:00:00,,,Coffee,Cappuccino Lg
+2023-05-31 03:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 03:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 03:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 03:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 04:00:00,,,Tea,Lemon Grass Lg
+2023-05-31 04:00:00,,,Bakery,Jumbo Savory Scone
+2023-05-31 04:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-05-31 04:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 04:00:00,,,Coffee,Cappuccino Lg
+2023-05-31 04:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 04:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 04:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 04:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 05:00:00,,,Tea,Lemon Grass Lg
+2023-05-31 05:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 05:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-05-31 05:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 05:00:00,,,Coffee,Cappuccino Lg
+2023-05-31 05:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 05:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 05:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 05:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 06:00:00,,,Tea,Peppermint Lg
+2023-05-31 06:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 06:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-05-31 06:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 06:00:00,,,Coffee,Espresso shot
+2023-05-31 06:00:00,,,Flavours,Traditional Blend Chai
+2023-05-31 06:00:00,,,Loose Tea,Traditional Blend Chai
+2023-05-31 06:00:00,,,Branded,Traditional Blend Chai
+2023-05-31 06:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-05-31 07:00:00,,,Tea,Peppermint Lg
+2023-05-31 07:00:00,,,Bakery,Ginger Scone
+2023-05-31 07:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-05-31 07:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 07:00:00,,,Coffee,Latte Rg
+2023-05-31 07:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 07:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 07:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 07:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 08:00:00,,,Tea,Peppermint Rg
+2023-05-31 08:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 08:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-05-31 08:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 08:00:00,,,Coffee,Cappuccino
+2023-05-31 08:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 08:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 08:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 08:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 09:00:00,,,Tea,Peppermint Rg
+2023-05-31 09:00:00,,,Bakery,Ginger Scone
+2023-05-31 09:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-05-31 09:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 09:00:00,,,Coffee,Espresso shot
+2023-05-31 09:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 09:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 09:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 09:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 10:00:00,,,Tea,Peppermint Rg
+2023-05-31 10:00:00,,,Bakery,Jumbo Savory Scone
+2023-05-31 10:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-05-31 10:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 10:00:00,,,Coffee,Cappuccino Lg
+2023-05-31 10:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 10:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 10:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 10:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 11:00:00,,,Tea,Lemon Grass Lg
+2023-05-31 11:00:00,,,Bakery,Jumbo Savory Scone
+2023-05-31 11:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-05-31 11:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 11:00:00,,,Coffee,Espresso shot
+2023-05-31 11:00:00,,,Flavours,Traditional Blend Chai
+2023-05-31 11:00:00,,,Loose Tea,Traditional Blend Chai
+2023-05-31 11:00:00,,,Branded,Traditional Blend Chai
+2023-05-31 11:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-05-31 12:00:00,,,Tea,Peppermint Rg
+2023-05-31 12:00:00,,,Bakery,Ginger Scone
+2023-05-31 12:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-05-31 12:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 12:00:00,,,Coffee,Espresso shot
+2023-05-31 12:00:00,,,Flavours,Traditional Blend Chai
+2023-05-31 12:00:00,,,Loose Tea,Traditional Blend Chai
+2023-05-31 12:00:00,,,Branded,Traditional Blend Chai
+2023-05-31 12:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-05-31 13:00:00,,,Tea,Lemon Grass Lg
+2023-05-31 13:00:00,,,Bakery,Jumbo Savory Scone
+2023-05-31 13:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-05-31 13:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 13:00:00,,,Coffee,Espresso shot
+2023-05-31 13:00:00,,,Flavours,Traditional Blend Chai
+2023-05-31 13:00:00,,,Loose Tea,Traditional Blend Chai
+2023-05-31 13:00:00,,,Branded,Traditional Blend Chai
+2023-05-31 13:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-05-31 14:00:00,,,Tea,Lemon Grass Lg
+2023-05-31 14:00:00,,,Bakery,Jumbo Savory Scone
+2023-05-31 14:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-05-31 14:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 14:00:00,,,Coffee,Ouro Brasileiro shot
+2023-05-31 14:00:00,,,Flavours,Traditional Blend Chai
+2023-05-31 14:00:00,,,Loose Tea,Traditional Blend Chai
+2023-05-31 14:00:00,,,Branded,Traditional Blend Chai
+2023-05-31 14:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-05-31 15:00:00,,,Tea,Lemon Grass Lg
+2023-05-31 15:00:00,,,Bakery,Oatmeal Scone
+2023-05-31 15:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-05-31 15:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 15:00:00,,,Coffee,Ouro Brasileiro shot
+2023-05-31 15:00:00,,,Flavours,Traditional Blend Chai
+2023-05-31 15:00:00,,,Loose Tea,Traditional Blend Chai
+2023-05-31 15:00:00,,,Branded,Traditional Blend Chai
+2023-05-31 15:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-05-31 16:00:00,,,Tea,Lemon Grass Lg
+2023-05-31 16:00:00,,,Bakery,Oatmeal Scone
+2023-05-31 16:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-05-31 16:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 16:00:00,,,Coffee,Cappuccino
+2023-05-31 16:00:00,,,Flavours,Traditional Blend Chai
+2023-05-31 16:00:00,,,Loose Tea,Traditional Blend Chai
+2023-05-31 16:00:00,,,Branded,Traditional Blend Chai
+2023-05-31 16:00:00,,,Packaged Chocolate,Traditional Blend Chai
+2023-05-31 17:00:00,,,Tea,Peppermint Lg
+2023-05-31 17:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 17:00:00,,,Drinking Chocolate,Sustainably Grown Organic Rg
+2023-05-31 17:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 17:00:00,,,Coffee,Latte Rg
+2023-05-31 17:00:00,,,Flavours,Spicy Eye Opener Chai
+2023-05-31 17:00:00,,,Loose Tea,Spicy Eye Opener Chai
+2023-05-31 17:00:00,,,Branded,Spicy Eye Opener Chai
+2023-05-31 17:00:00,,,Packaged Chocolate,Spicy Eye Opener Chai
+2023-05-31 18:00:00,,,Tea,Lemon Grass Rg
+2023-05-31 18:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 18:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-05-31 18:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 18:00:00,,,Coffee,Espresso shot
+2023-05-31 18:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 18:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 18:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 18:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 19:00:00,,,Tea,Lemon Grass Lg
+2023-05-31 19:00:00,,,Bakery,Cranberry Scone
+2023-05-31 19:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-05-31 19:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 19:00:00,,,Coffee,Espresso shot
+2023-05-31 19:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 19:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 19:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 19:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 20:00:00,,,Tea,Peppermint Rg
+2023-05-31 20:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 20:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-05-31 20:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 20:00:00,,,Coffee,Espresso shot
+2023-05-31 20:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 20:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 20:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 20:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 21:00:00,,,Tea,Peppermint Rg
+2023-05-31 21:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 21:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-05-31 21:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 21:00:00,,,Coffee,Latte Rg
+2023-05-31 21:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 21:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 21:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 21:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 22:00:00,,,Tea,Peppermint Rg
+2023-05-31 22:00:00,,,Bakery,Jumbo Savory Scone
+2023-05-31 22:00:00,,,Drinking Chocolate,Dark chocolate Lg
+2023-05-31 22:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 22:00:00,,,Coffee,Latte Rg
+2023-05-31 22:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 22:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 22:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 22:00:00,,,Packaged Chocolate,Morning Sunrise Chai
+2023-05-31 23:00:00,,,Tea,Lemon Grass Lg
+2023-05-31 23:00:00,,,Bakery,Scottish Cream Scone 
+2023-05-31 23:00:00,,,Drinking Chocolate,Sustainably Grown Organic Lg
+2023-05-31 23:00:00,,,Coffee beans,Guatemalan Sustainably Grown
+2023-05-31 23:00:00,,,Coffee,Cappuccino Lg
+2023-05-31 23:00:00,,,Flavours,Morning Sunrise Chai
+2023-05-31 23:00:00,,,Loose Tea,Morning Sunrise Chai
+2023-05-31 23:00:00,,,Branded,Morning Sunrise Chai
+2023-05-31 23:00:00,,,Packaged Chocolate,Morning Sunrise Chai

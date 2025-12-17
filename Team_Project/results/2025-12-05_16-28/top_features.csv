@@ -1,0 +1,16 @@
+feature,importance
+product_category_Coffee,1.4212169251489744
+product_category_Tea,1.1748920329028287
+product_category_Bakery,0.4359037382950496
+product_category_Flavours,0.3080005364280859
+product_category_Coffee beans,0.3033214166305643
+product_type_Premium Beans,0.15294752509024762
+product_category_Branded,0.10419152685441704
+product_type_Hot chocolate,0.08616691464002672
+product_category_Drinking Chocolate,0.08616691464002671
+product_type_Clothing,0.05759268409056804
+product_type_Regular syrup,0.05642864890209929
+product_type_Gourmet brewed coffee,0.04260910809346304
+product_type_Drip coffee,0.03198482991296546
+product_type_Brewed herbal tea,0.028434609109295052
+product_type_Brewed Black tea,0.026241094726872714

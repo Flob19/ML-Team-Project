@@ -5,6 +5,7 @@ Streamlit dashboard for Café Order Forecaster
 import math
 from functools import lru_cache
 from pathlib import Path
+import joblib
 
 import numpy as np
 import pandas as pd
@@ -484,6 +485,13 @@ def kpi_cards(col, title, value, subtitle=None, delta=None):
             st.markdown(f"<span style='color:{color};font-weight:bold'>{delta:+.1f}%</span>", unsafe_allow_html=True)
 
 
+@st.cache_resource
+def load_decision_tree_model():
+    model_path = ROOT / "recommended" / "decision_tree_model.pkl"
+    if model_path.exists():
+        return joblib.load(model_path)
+    return None
+
 def main():
     st.set_page_config(
         page_title="Café Order Forecaster",
@@ -494,166 +502,219 @@ def main():
     st.title("Café Order Forecaster")
     st.caption("ML-powered demand prediction with weather-aware Random Forest, MLP & Linear Regression models.")
 
-    models, feature_cols, total_history = prepare_total_models()
-    category_models, category_histories, category_metrics, category_features = prepare_category_models()
-    weather_df = get_weather_forecast(hours=168)
+    tab1, tab2 = st.tabs(["Order Forecast", "Product Recommendation"])
 
-    categories = ["All"] + sorted(category_models.keys())
-    horizon_options = {
-        "24 hours": 24,
-        "48 hours": 48,
-        "72 hours": 72,
-        "96 hours": 96,
-        "120 hours": 120,
-        "144 hours": 144,
-        "7 days (168h)": 168,
-    }
+    with tab1:
+        models, feature_cols, total_history = prepare_total_models()
+        category_models, category_histories, category_metrics, category_features = prepare_category_models()
+        weather_df = get_weather_forecast(hours=168)
 
-    with st.sidebar:
-        st.header("Forecast Controls")
-        category_choice = st.selectbox("Product Category", categories)
-        horizon_label = st.select_slider(
-            "Forecast Horizon",
-            options=list(horizon_options.keys()),
-            value="48 hours",
-        )
-        horizon = horizon_options[horizon_label]
-        model_choice = st.selectbox(
-            "Model",
-            list(models.keys()),
-            index=0,
-            disabled=category_choice != "All",
-            help="Category forecasts currently use Random Forest.",
-        )
-
-    if category_choice == "All":
-        selected_model = models[model_choice]
-        feature_set = feature_cols
-        history = total_history
-    else:
-        selected_model = category_models[category_choice]
-        feature_set = category_features
-        history = category_histories[category_choice]
-
-    forecast = autoregressive_forecast(
-        selected_model["model"],
-        feature_set,
-        history,
-        weather_df,
-        horizon,
-    )
-
-    forecast["pred_orders"] = forecast["pred_qty"]
-    peak_hour = forecast.loc[forecast["pred_orders"].idxmax()]
-    period_forecast = forecast["pred_orders"].sum()
-    avg_per_hour = forecast["pred_orders"].mean()
-    
-    accuracy = selected_model.get("metrics", {}).get("test", {}).get("r2", 0) * 100
-
-    col1, col2, col3, col4 = st.columns(4)
-    kpi_cards(col1, "Period's Forecast", f"{period_forecast:.0f}", f"Total for {horizon}h")
-    kpi_cards(col2, "Peak Hour", peak_hour["hour"].strftime("%a %H:%M"), f"{peak_hour['pred_orders']:.0f} orders expected")
-    kpi_cards(col3, "Avg per Hour", f"{avg_per_hour:.1f}", "Average orders/hour")
-    kpi_cards(col4, "Model Accuracy", f"{accuracy:.1f}%", model_choice)
-
-    st.subheader("Order Forecast")
-    chart = px.line(
-        forecast,
-        x="hour",
-        y="pred_orders",
-        markers=True,
-        labels={"hour": "Date", "pred_orders": "Predicted Quantity"},
-        title=f"{category_choice} forecast for next {horizon}h using {model_choice}",
-    )
-    st.plotly_chart(chart, use_container_width=True)
-
-    st.subheader("Weather Forecast")
-    weather_forecast_df = weather_df.head(horizon).copy()
-    
-    fig_weather = make_subplots(
-        rows=2, cols=2,
-        subplot_titles=("Temperature (°C)", "Rain (mm)", "Cloud Cover (%)", "Wind Speed (km/h)"),
-        vertical_spacing=0.2,
-        horizontal_spacing=0.1
-    )
-    
-    fig_weather.add_trace(
-        go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["temperature_C"], 
-                  name="Temperature", line=dict(color="red")),
-        row=1, col=1
-    )
-    fig_weather.add_trace(
-        go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["rain_mm"], 
-                  name="Rain", line=dict(color="blue")),
-        row=1, col=2
-    )
-    fig_weather.add_trace(
-        go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["cloud_cover_pct"], 
-                  name="Cloud Cover", line=dict(color="gray")),
-        row=2, col=1
-    )
-    fig_weather.add_trace(
-        go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["wind_speed_kmh"], 
-                  name="Wind Speed", line=dict(color="green")),
-        row=2, col=2
-    )
-    
-    fig_weather.update_xaxes(title_text="Date", row=2, col=1)
-    fig_weather.update_xaxes(title_text="Date", row=2, col=2)
-    fig_weather.update_yaxes(title_text="°C", row=1, col=1)
-    fig_weather.update_yaxes(title_text="mm", row=1, col=2)
-    fig_weather.update_yaxes(title_text="%", row=2, col=1)
-    fig_weather.update_yaxes(title_text="km/h", row=2, col=2)
-    
-    fig_weather.update_layout(
-        height=600,
-        title_text=f"Weather forecast for next {horizon}h",
-        showlegend=False
-    )
-    st.plotly_chart(fig_weather, use_container_width=True)
-
-    st.subheader("Manual Prediction")
-    cafes = [col.replace("cafe_", "") for col in feature_set if col.startswith("cafe_")]
-    weather_now = weather_df.iloc[0]
-    with st.form("manual_prediction_form"):
-        c1, c2, c3 = st.columns(3)
-        temperature = c1.number_input("Temperature (°C)", value=float(weather_now["temperature_C"]))
-        rain = c2.number_input("Rain (mm)", value=float(weather_now["rain_mm"]), min_value=0.0)
-        cloud = c3.number_input("Cloud Cover (%)", value=float(weather_now["cloud_cover_pct"]), min_value=0.0, max_value=100.0)
-
-        c4, c5, c6 = st.columns(3)
-        wind = c4.number_input("Wind Speed (km/h)", value=float(weather_now["wind_speed_kmh"]), min_value=0.0)
-        hour_of_day = c5.number_input("Hour of Day (0-23)", min_value=0, max_value=23, value=int(weather_now["hour_of_day"]))
-        day_of_week = c6.number_input("Day of Week (0=Mon)", min_value=0, max_value=6, value=int(weather_now["day_of_week"]))
-
-        c7, c8 = st.columns(2)
-        is_weekend = c7.toggle("Weekend", value=bool(weather_now["is_weekend"]))
-        cafe_choice = c8.selectbox("Cafe", ["Auto"] + cafes) if cafes else "Auto"
-
-        submitted = st.form_submit_button("Predict Orders")
-
-    if submitted:
-        latest_row = history.iloc[-1]
-        manual_inputs = {
-            "temperature": temperature,
-            "rain": rain,
-            "cloud_cover": cloud,
-            "wind_speed": wind,
-            "hour_of_day": hour_of_day,
-            "day_of_week": day_of_week,
-            "is_weekend": is_weekend,
-            "cafe": None if cafe_choice == "Auto" else cafe_choice,
-            "qty_mean_24h": history.tail(24)["orders"].mean(),
-            "qty_std_24h": history.tail(24)["orders"].std(),
-            "qty_mean_7d": history.tail(24 * 7)["orders"].mean(),
+        categories = ["All"] + sorted(category_models.keys())
+        horizon_options = {
+            "24 hours": 24,
+            "48 hours": 48,
+            "72 hours": 72,
+            "96 hours": 96,
+            "120 hours": 120,
+            "144 hours": 144,
+            "7 days (168h)": 168,
         }
-        pred = manual_prediction(
+
+        with st.sidebar:
+            st.header("Forecast Controls")
+            category_choice = st.selectbox("Product Category", categories)
+            horizon_label = st.select_slider(
+                "Forecast Horizon",
+                options=list(horizon_options.keys()),
+                value="48 hours",
+            )
+            horizon = horizon_options[horizon_label]
+            model_choice = st.selectbox(
+                "Model",
+                list(models.keys()),
+                index=0,
+                disabled=category_choice != "All",
+                help="Category forecasts currently use Random Forest.",
+            )
+
+        if category_choice == "All":
+            selected_model = models[model_choice]
+            feature_set = feature_cols
+            history = total_history
+        else:
+            selected_model = category_models[category_choice]
+            feature_set = category_features
+            history = category_histories[category_choice]
+
+        forecast = autoregressive_forecast(
             selected_model["model"],
             feature_set,
-            latest_row,
-            manual_inputs,
+            history,
+            weather_df,
+            horizon,
         )
-        st.success(f"Predicted demand: **{pred:.1f} orders**")
+
+        forecast["pred_orders"] = forecast["pred_qty"]
+        peak_hour = forecast.loc[forecast["pred_orders"].idxmax()]
+        period_forecast = forecast["pred_orders"].sum()
+        avg_per_hour = forecast["pred_orders"].mean()
+        
+        accuracy = selected_model.get("metrics", {}).get("test", {}).get("r2", 0) * 100
+
+        col1, col2, col3, col4 = st.columns(4)
+        kpi_cards(col1, "Period's Forecast", f"{period_forecast:.0f}", f"Total for {horizon}h")
+        kpi_cards(col2, "Peak Hour", peak_hour["hour"].strftime("%a %H:%M"), f"{peak_hour['pred_orders']:.0f} orders expected")
+        kpi_cards(col3, "Avg per Hour", f"{avg_per_hour:.1f}", "Average orders/hour")
+        kpi_cards(col4, "Model Accuracy", f"{accuracy:.1f}%", model_choice)
+
+        st.subheader("Order Forecast")
+        chart = px.line(
+            forecast,
+            x="hour",
+            y="pred_orders",
+            markers=True,
+            labels={"hour": "Date", "pred_orders": "Predicted Quantity"},
+            title=f"{category_choice} forecast for next {horizon}h using {model_choice}",
+        )
+        st.plotly_chart(chart, use_container_width=True)
+
+        st.subheader("Weather Forecast")
+        weather_forecast_df = weather_df.head(horizon).copy()
+        
+        fig_weather = make_subplots(
+            rows=2, cols=2,
+            subplot_titles=("Temperature (°C)", "Rain (mm)", "Cloud Cover (%)", "Wind Speed (km/h)"),
+            vertical_spacing=0.2,
+            horizontal_spacing=0.1
+        )
+        
+        fig_weather.add_trace(
+            go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["temperature_C"], 
+                    name="Temperature", line=dict(color="red")),
+            row=1, col=1
+        )
+        fig_weather.add_trace(
+            go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["rain_mm"], 
+                    name="Rain", line=dict(color="blue")),
+            row=1, col=2
+        )
+        fig_weather.add_trace(
+            go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["cloud_cover_pct"], 
+                    name="Cloud Cover", line=dict(color="gray")),
+            row=2, col=1
+        )
+        fig_weather.add_trace(
+            go.Scatter(x=weather_forecast_df["hour"], y=weather_forecast_df["wind_speed_kmh"], 
+                    name="Wind Speed", line=dict(color="green")),
+            row=2, col=2
+        )
+        
+        fig_weather.update_xaxes(title_text="Date", row=2, col=1)
+        fig_weather.update_xaxes(title_text="Date", row=2, col=2)
+        fig_weather.update_yaxes(title_text="°C", row=1, col=1)
+        fig_weather.update_yaxes(title_text="mm", row=1, col=2)
+        fig_weather.update_yaxes(title_text="%", row=2, col=1)
+        fig_weather.update_yaxes(title_text="km/h", row=2, col=2)
+        
+        fig_weather.update_layout(
+            height=600,
+            title_text=f"Weather forecast for next {horizon}h",
+            showlegend=False
+        )
+        st.plotly_chart(fig_weather, use_container_width=True)
+
+        st.subheader("Manual Prediction")
+        cafes = [col.replace("cafe_", "") for col in feature_set if col.startswith("cafe_")]
+        weather_now = weather_df.iloc[0]
+        with st.form("manual_prediction_form"):
+            c1, c2, c3 = st.columns(3)
+            temperature = c1.number_input("Temperature (°C)", value=float(weather_now["temperature_C"]))
+            rain = c2.number_input("Rain (mm)", value=float(weather_now["rain_mm"]), min_value=0.0)
+            cloud = c3.number_input("Cloud Cover (%)", value=float(weather_now["cloud_cover_pct"]), min_value=0.0, max_value=100.0)
+
+            c4, c5, c6 = st.columns(3)
+            wind = c4.number_input("Wind Speed (km/h)", value=float(weather_now["wind_speed_kmh"]), min_value=0.0)
+            hour_of_day = c5.number_input("Hour of Day (0-23)", min_value=0, max_value=23, value=int(weather_now["hour_of_day"]))
+            day_of_week = c6.number_input("Day of Week (0=Mon)", min_value=0, max_value=6, value=int(weather_now["day_of_week"]))
+
+            c7, c8 = st.columns(2)
+            is_weekend = c7.toggle("Weekend", value=bool(weather_now["is_weekend"]))
+            cafe_choice = c8.selectbox("Cafe", ["Auto"] + cafes) if cafes else "Auto"
+
+            submitted = st.form_submit_button("Predict Orders")
+
+        if submitted:
+            latest_row = history.iloc[-1]
+            manual_inputs = {
+                "temperature": temperature,
+                "rain": rain,
+                "cloud_cover": cloud,
+                "wind_speed": wind,
+                "hour_of_day": hour_of_day,
+                "day_of_week": day_of_week,
+                "is_weekend": is_weekend,
+                "cafe": None if cafe_choice == "Auto" else cafe_choice,
+                "qty_mean_24h": history.tail(24)["orders"].mean(),
+                "qty_std_24h": history.tail(24)["orders"].std(),
+                "qty_mean_7d": history.tail(24 * 7)["orders"].mean(),
+            }
+            pred = manual_prediction(
+                selected_model["model"],
+                feature_set,
+                latest_row,
+                manual_inputs,
+            )
+            st.success(f"Predicted demand: **{pred:.1f} orders**")
+
+    with tab2:
+        st.header("Product Recommendation")
+        dt_model = load_decision_tree_model()
+        if dt_model is None:
+            st.error("Decision Tree model not found. Please run 'recommended/decisiontree.py' to generate it.")
+        else:
+            st.write("Enter details to get a product recommendation:")
+            with st.form("product_recommendation_form"):
+                col1, col2, col3 = st.columns(3)
+                transaction_qty = col1.number_input("Transaction Qty", min_value=1, value=1)
+                store_id = col2.number_input("Store ID", min_value=1, value=1)
+                store_location = col3.text_input("Store Location", value="Lower Manhattan")
+                
+                col4, col5, col6 = st.columns(3)
+                unit_price = col4.number_input("Unit Price", min_value=0.0, value=3.0)
+                product_category = col5.text_input("Product Category", value="Coffee")
+                hour = col6.number_input("Hour (0-23)", min_value=0, max_value=23, value=9)
+                
+                col7, col8, col9 = st.columns(3)
+                temperature_C = col7.number_input("Temperature (°C)", value=20.0)
+                rain_mm = col8.number_input("Rain (mm)", value=0.0)
+                snow_cm = col9.number_input("Snow (cm)", value=0.0)
+                
+                col10, col11 = st.columns(2)
+                cloud_cover_pct = col10.number_input("Cloud Cover (%)", value=50.0)
+                wind_speed_kmh = col11.number_input("Wind Speed (km/h)", value=10.0)
+                
+                submitted_dt = st.form_submit_button("Recommend Product")
+                
+            if submitted_dt:
+                input_data = pd.DataFrame({
+                    'transaction_qty': [transaction_qty],
+                    'store_id': [store_id],
+                    'store_location': [store_location],
+                    'unit_price': [unit_price],
+                    'product_category': [product_category],
+                    'hour': [hour],
+                    'temperature_C': [temperature_C],
+                    'rain_mm': [rain_mm],
+                    'snow_cm': [snow_cm],
+                    'cloud_cover_pct': [cloud_cover_pct],
+                    'wind_speed_kmh': [wind_speed_kmh]
+                })
+                
+                try:
+                    prediction = dt_model.predict(input_data)[0]
+                    st.success(f"Recommended Product: **{prediction}**")
+                except Exception as e:
+                    st.error(f"Error making prediction: {e}")
 
     st.divider()
     st.markdown(
