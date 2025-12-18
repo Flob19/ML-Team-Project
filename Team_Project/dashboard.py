@@ -578,11 +578,15 @@ def kpi_cards(col, title, value, subtitle=None, delta=None):
 
 @st.cache_resource
 def load_decision_tree_model(force_retrain=False):
-    model_path = ROOT / "recommended" / "decision_tree_model.pkl"
-    if not force_retrain and model_path.exists():
-        return joblib.load(model_path)
+    model_path = ROOT / "models" / "decision_tree_model.pkl"
     
-    # Train if missing or forced
+    if not force_retrain and model_path.exists():
+        try:
+            return joblib.load(model_path)
+        except Exception as e:
+            print(f"Error loading model from {model_path}: {e}. Retraining...")
+    
+    # Train if missing, forced, or load failed
     try:
         # Add the current directory to sys.path to ensure we can import from recommended
         import sys
@@ -590,7 +594,11 @@ def load_decision_tree_model(force_retrain=False):
             sys.path.append(str(ROOT))
             
         from recommended.decisiontree import train_decision_tree_model
-        return train_decision_tree_model()
+        model = train_decision_tree_model()
+        
+        # Save to the models directory for consistency
+        joblib.dump(model, model_path)
+        return model
     except Exception as e:
         st.error(f"Failed to train decision tree model: {e}")
         return None

@@ -83,7 +83,7 @@ def train_decision_tree_model():
     print("Model trained.")
 
     # Save model
-    model_filename = current_dir / "decision_tree_model.pkl"
+    model_filename = current_dir.parent / "models" / "decision_tree_model.pkl"
     joblib.dump(dt_pipeline, model_filename)
     print(f"Model saved to {model_filename}")
 
@@ -104,10 +104,9 @@ if __name__ == "__main__":
     # We need to reconstruct X_val/y_val or return them to do this outside, 
     # but for simplicity let's just skip the random sample print when imported.
     pass
-})
 
-print(results_df)
 
+""" 
 # 8. Feature Importance Graph
 print("\nGenerating feature importance graph...")
 
@@ -146,3 +145,4 @@ plt.tight_layout()
 output_file = 'feature_importance.png'
 plt.savefig(output_file)
 print(f"Feature importance graph saved to {output_file}")
+""" 
