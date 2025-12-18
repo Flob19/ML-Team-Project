@@ -1,7 +1,7 @@
 # Coffee Shop Helper
 
 ## Overview
-
+Coffee shop helper is a tool created to help with coffee shop management. It uses different machine learning models to generate detailed predictions about future demand in coffee shops based on past sales data and weather data.
 
 ## Installation
  - Create a conda environment:
