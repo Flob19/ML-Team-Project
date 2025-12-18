@@ -256,8 +256,12 @@ def evaluate(model, X_train, y_train, X_test, y_test):
     }
 
 
+
+MODEL_DIR = ROOT / "models"
+MODEL_DIR.mkdir(exist_ok=True)
+
 @st.cache_resource(show_spinner=False)
-def prepare_total_models():
+def prepare_total_models(force_retrain=False):
     df_tx = load_transactions()
     df_hourly = aggregate_total(df_tx)
     df_hourly = add_time_features(df_hourly)
@@ -271,15 +275,40 @@ def prepare_total_models():
         X, y, test_size=0.2, shuffle=False, random_state=0
     )
 
+    model_files = {
+        "rf": MODEL_DIR / "total_rf.pkl",
+        "lr": MODEL_DIR / "total_lr.pkl",
+        "mlp": MODEL_DIR / "total_mlp.pkl",
+        "metrics": MODEL_DIR / "total_metrics.pkl"
+    }
     
-    rf_model  = train_models(X_train, y_train, "rf")
-    lin_model = train_models(X_train, y_train, "lr")
-    mlp_model = train_models(X_train, y_train, "mlp")   
+    models_exist = all(f.exists() for f in model_files.values())
 
-    
-    rf_metrics  = evaluate(rf_model,  X_train, y_train, X_test, y_test)
-    lr_metrics  = evaluate(lin_model, X_train, y_train, X_test, y_test)
-    mlp_metrics = evaluate(mlp_model, X_train, y_train, X_test, y_test)
+    if not force_retrain and models_exist:
+        rf_model = joblib.load(model_files["rf"])
+        lin_model = joblib.load(model_files["lr"])
+        mlp_model = joblib.load(model_files["mlp"])
+        metrics = joblib.load(model_files["metrics"])
+        rf_metrics = metrics["rf"]
+        lr_metrics = metrics["lr"]
+        mlp_metrics = metrics["mlp"]
+    else:
+        rf_model  = train_models(X_train, y_train, "rf")
+        lin_model = train_models(X_train, y_train, "lr")
+        mlp_model = train_models(X_train, y_train, "mlp")   
+
+        rf_metrics  = evaluate(rf_model,  X_train, y_train, X_test, y_test)
+        lr_metrics  = evaluate(lin_model, X_train, y_train, X_test, y_test)
+        mlp_metrics = evaluate(mlp_model, X_train, y_train, X_test, y_test)
+
+        joblib.dump(rf_model, model_files["rf"])
+        joblib.dump(lin_model, model_files["lr"])
+        joblib.dump(mlp_model, model_files["mlp"])
+        joblib.dump({
+            "rf": rf_metrics,
+            "lr": lr_metrics,
+            "mlp": mlp_metrics
+        }, model_files["metrics"])
 
     history_cols = ["hour", "qty"] + [c for c in feats if c.startswith("cafe_")]
     history = df_hourly[history_cols].rename(columns={"qty": "orders"})
@@ -297,7 +326,7 @@ def prepare_total_models():
 
 
 @st.cache_resource(show_spinner=False)
-def prepare_category_models():
+def prepare_category_models(force_retrain=False):
     df_tx = load_transactions()
     df_cat = aggregate_by_category(df_tx)
     df_cat = add_time_features(df_cat)
@@ -309,24 +338,86 @@ def prepare_category_models():
     histories = {}
     metrics = {}
 
-    for category, group in df_cat.groupby("product_category"):
-        if len(group) < 200:
-            continue
-        cat_df = group.copy()
-        for col in cafe_cols:
-            if col not in cat_df.columns:
-                cat_df[col] = 0
-        X = cat_df[feats]
-        y = cat_df["qty"]
-        X_train, X_test, y_train, y_test = train_test_split(
-            X, y, test_size=0.2, shuffle=False, random_state=42
-        )
-        model = train_models(X_train, y_train, "rf")
-        cat_metrics = evaluate(model, X_train, y_train, X_test, y_test)
-        metrics[category] = cat_metrics
-        history_cols = ["hour", "qty"] + cafe_cols
-        histories[category] = cat_df[history_cols].rename(columns={"qty": "orders"})
-        models[category] = {"model": model, "metrics": cat_metrics}
+    # Check if category models exist
+    cat_model_dir = MODEL_DIR / "categories"
+    cat_model_dir.mkdir(exist_ok=True)
+    
+    # We need to know categories to check existence, but we get categories from data.
+    # So we process data first.
+    
+    categories = df_cat["product_category"].unique()
+    
+    # Simple check: if directory is empty or force_retrain, we train.
+    # A more robust check would be per category, but let's keep it simple: all or nothing for now,
+    # or check if we have files for all categories found in data.
+    
+    # Let's try to load if not force_retrain
+    loaded_all = False
+    if not force_retrain:
+        try:
+            # We expect a file per category
+            loaded_models = {}
+            loaded_metrics = {}
+            all_exist = True
+            for category in categories:
+                group = df_cat[df_cat["product_category"] == category]
+                if len(group) < 200:
+                    continue
+                
+                safe_cat = "".join(x for x in category if x.isalnum())
+                model_path = cat_model_dir / f"{safe_cat}_rf.pkl"
+                metrics_path = cat_model_dir / f"{safe_cat}_metrics.pkl"
+                
+                if model_path.exists() and metrics_path.exists():
+                    loaded_models[category] = joblib.load(model_path)
+                    loaded_metrics[category] = joblib.load(metrics_path)
+                else:
+                    all_exist = False
+                    break
+            
+            if all_exist and loaded_models:
+                # Reconstruct the return structure
+                for category in loaded_models:
+                    models[category] = {"model": loaded_models[category], "metrics": loaded_metrics[category]}
+                    # History needs to be rebuilt from data
+                    group = df_cat[df_cat["product_category"] == category]
+                    cat_df = group.copy()
+                    for col in cafe_cols:
+                        if col not in cat_df.columns:
+                            cat_df[col] = 0
+                    history_cols = ["hour", "qty"] + cafe_cols
+                    histories[category] = cat_df[history_cols].rename(columns={"qty": "orders"})
+                
+                loaded_all = True
+        except Exception as e:
+            print(f"Failed to load category models: {e}")
+            loaded_all = False
+
+    if not loaded_all:
+        # Train
+        for category, group in df_cat.groupby("product_category"):
+            if len(group) < 200:
+                continue
+            cat_df = group.copy()
+            for col in cafe_cols:
+                if col not in cat_df.columns:
+                    cat_df[col] = 0
+            X = cat_df[feats]
+            y = cat_df["qty"]
+            X_train, X_test, y_train, y_test = train_test_split(
+                X, y, test_size=0.2, shuffle=False, random_state=42
+            )
+            model = train_models(X_train, y_train, "rf")
+            cat_metrics = evaluate(model, X_train, y_train, X_test, y_test)
+            metrics[category] = cat_metrics
+            history_cols = ["hour", "qty"] + cafe_cols
+            histories[category] = cat_df[history_cols].rename(columns={"qty": "orders"})
+            models[category] = {"model": model, "metrics": cat_metrics}
+            
+            # Save
+            safe_cat = "".join(x for x in category if x.isalnum())
+            joblib.dump(model, cat_model_dir / f"{safe_cat}_rf.pkl")
+            joblib.dump(cat_metrics, cat_model_dir / f"{safe_cat}_metrics.pkl")
 
     return models, histories, metrics, feats
 
@@ -486,28 +577,72 @@ def kpi_cards(col, title, value, subtitle=None, delta=None):
 
 
 @st.cache_resource
-def load_decision_tree_model():
+def load_decision_tree_model(force_retrain=False):
     model_path = ROOT / "recommended" / "decision_tree_model.pkl"
-    if model_path.exists():
+    if not force_retrain and model_path.exists():
         return joblib.load(model_path)
-    return None
+    
+    # Train if missing or forced
+    try:
+        # Add the current directory to sys.path to ensure we can import from recommended
+        import sys
+        if str(ROOT) not in sys.path:
+            sys.path.append(str(ROOT))
+            
+        from recommended.decisiontree import train_decision_tree_model
+        return train_decision_tree_model()
+    except Exception as e:
+        st.error(f"Failed to train decision tree model: {e}")
+        return None
 
 def main():
     st.set_page_config(
-        page_title="Café Order Forecaster",
+        page_title="Coffee Shop Helper",
         page_icon="📈",
         layout="wide",
     )
 
-    st.title("Café Order Forecaster")
-    st.caption("ML-powered demand prediction with weather-aware Random Forest, MLP & Linear Regression models.")
+    st.title("Coffee Shop Helper")
+    st.caption("ML-powered demand prediction with weather-aware Random Forest, MLP & Linear Regression models. Product recommendations via Decision Tree.")
+
+    # Loading indicator
+    loading_placeholder = st.empty()
+    
+    # Check if models exist to set appropriate message
+    model_files = [
+        MODEL_DIR / "total_rf.pkl",
+        MODEL_DIR / "total_lr.pkl",
+        MODEL_DIR / "total_mlp.pkl",
+        MODEL_DIR / "total_metrics.pkl"
+    ]
+    models_exist = all(f.exists() for f in model_files)
+    
+    if not models_exist:
+        loading_placeholder.markdown("### ⏳ Training models... Please wait, this may take a few minutes.")
+    else:
+        loading_placeholder.markdown("### ⏳ Loading models...")
+
+    # Load Data & Models
+    models, feature_cols, total_history = prepare_total_models()
+    category_models, category_histories, category_metrics, category_features = prepare_category_models()
+    weather_df = get_weather_forecast(hours=168)
+    
+    # Clear loading indicator
+    loading_placeholder.empty()
 
     tab1, tab2 = st.tabs(["Order Forecast", "Product Recommendation"])
 
     with tab1:
-        models, feature_cols, total_history = prepare_total_models()
-        category_models, category_histories, category_metrics, category_features = prepare_category_models()
-        weather_df = get_weather_forecast(hours=168)
+        with st.sidebar:
+            st.header("Model Management")
+            if st.button("Retrain Models"):
+                loading_placeholder.markdown("### ⏳ Retraining models... Please wait.")
+                st.cache_resource.clear()
+                prepare_total_models(force_retrain=True)
+                prepare_category_models(force_retrain=True)
+                load_decision_tree_model(force_retrain=True)
+                st.success("Models retrained and saved!")
+                st.rerun()
 
         categories = ["All"] + sorted(category_models.keys())
         horizon_options = {
@@ -669,52 +804,101 @@ def main():
     with tab2:
         st.header("Product Recommendation")
         dt_model = load_decision_tree_model()
+        
         if dt_model is None:
             st.error("Decision Tree model not found. Please run 'recommended/decisiontree.py' to generate it.")
         else:
-            st.write("Enter details to get a product recommendation:")
-            with st.form("product_recommendation_form"):
-                col1, col2, col3 = st.columns(3)
-                transaction_qty = col1.number_input("Transaction Qty", min_value=1, value=1)
-                store_id = col2.number_input("Store ID", min_value=1, value=1)
-                store_location = col3.text_input("Store Location", value="Lower Manhattan")
+            st.write(f"Generating recommendations for the next {horizon} hours based on weather forecast.")
+            
+            # Get defaults from data
+            df_tx = load_transactions()
+            # Use mode for categorical/ID fields
+            default_store_id = df_tx['store_id'].mode()[0] if not df_tx['store_id'].mode().empty else 1
+            default_location = df_tx['store_location'].mode()[0] if not df_tx['store_location'].mode().empty else "Unknown"
+            # Calculate average unit price per category to use as a proxy
+            avg_prices = df_tx.groupby('product_category')['unit_price'].mean().to_dict()
+            
+            # Prepare input data
+            recs = []
+            # Limit to horizon
+            forecast_weather = weather_df.head(horizon)
+            
+            # Categories to recommend for (exclude "All" and "Unknown")
+            rec_categories = [c for c in categories if c != "All" and c != "Unknown"]
+            
+            # Create a placeholder for progress
+            progress_text = "Generating recommendations..."
+            my_bar = st.progress(0, text=progress_text)
+            
+            total_steps = len(forecast_weather)
+            
+            for i, row in forecast_weather.iterrows():
+                timestamp = row['hour']
+                hour_int = timestamp.hour
                 
-                col4, col5, col6 = st.columns(3)
-                unit_price = col4.number_input("Unit Price", min_value=0.0, value=3.0)
-                product_category = col5.text_input("Product Category", value="Coffee")
-                hour = col6.number_input("Hour (0-23)", min_value=0, max_value=23, value=9)
+                for cat in rec_categories:
+                    recs.append({
+                        'timestamp': timestamp,
+                        'transaction_qty': 1, # Assume single item transaction
+                        'store_id': default_store_id,
+                        'store_location': default_location,
+                        'unit_price': avg_prices.get(cat, 3.0),
+                        'product_category': cat,
+                        'hour': hour_int,
+                        'temperature_C': row['temperature_C'],
+                        'rain_mm': row['rain_mm'],
+                        'snow_cm': 0.0, # Assuming 0 as it's not in forecast
+                        'cloud_cover_pct': row['cloud_cover_pct'],
+                        'wind_speed_kmh': row['wind_speed_kmh']
+                    })
+                my_bar.progress((i + 1) / total_steps, text=progress_text)
+            
+            my_bar.empty()
+            
+            if recs:
+                input_df = pd.DataFrame(recs)
                 
-                col7, col8, col9 = st.columns(3)
-                temperature_C = col7.number_input("Temperature (°C)", value=20.0)
-                rain_mm = col8.number_input("Rain (mm)", value=0.0)
-                snow_cm = col9.number_input("Snow (cm)", value=0.0)
-                
-                col10, col11 = st.columns(2)
-                cloud_cover_pct = col10.number_input("Cloud Cover (%)", value=50.0)
-                wind_speed_kmh = col11.number_input("Wind Speed (km/h)", value=10.0)
-                
-                submitted_dt = st.form_submit_button("Recommend Product")
-                
-            if submitted_dt:
-                input_data = pd.DataFrame({
-                    'transaction_qty': [transaction_qty],
-                    'store_id': [store_id],
-                    'store_location': [store_location],
-                    'unit_price': [unit_price],
-                    'product_category': [product_category],
-                    'hour': [hour],
-                    'temperature_C': [temperature_C],
-                    'rain_mm': [rain_mm],
-                    'snow_cm': [snow_cm],
-                    'cloud_cover_pct': [cloud_cover_pct],
-                    'wind_speed_kmh': [wind_speed_kmh]
-                })
+                # Predict
+                # We need to pass only the columns the model expects
+                model_cols = ['transaction_qty', 'store_id', 'store_location', 'unit_price', 'product_category', 'hour', 'temperature_C', 'rain_mm', 'snow_cm', 'cloud_cover_pct', 'wind_speed_kmh']
                 
                 try:
-                    prediction = dt_model.predict(input_data)[0]
-                    st.success(f"Recommended Product: **{prediction}**")
+                    predictions = dt_model.predict(input_df[model_cols])
+                    input_df['Recommended Product'] = predictions
+                    
+                    # Display
+                    st.subheader("Recommendations")
+                    
+                    # Format for display
+                    display_df = input_df[['timestamp', 'product_category', 'Recommended Product', 'temperature_C', 'rain_mm']].copy()
+                    display_df.columns = ['Time', 'Category', 'Recommended Product', 'Temp (°C)', 'Rain (mm)']
+                    
+                    # Allow filtering by category in the view
+                    options = ["All"] + rec_categories
+                    default_index = 0
+                    if "Coffee" in options:
+                        default_index = options.index("Coffee")
+                    
+                    view_cat = st.selectbox("Filter by Category", options, index=default_index, key="rec_cat_filter")
+                    
+                    if view_cat != "All":
+                        display_df = display_df[display_df['Category'] == view_cat]
+                    
+                    st.dataframe(
+                        display_df, 
+                        use_container_width=True, 
+                        hide_index=True,
+                        column_config={
+                            "Time": st.column_config.DatetimeColumn(format="D MMM, HH:mm"),
+                            "Temp (°C)": st.column_config.NumberColumn(format="%.1f"),
+                            "Rain (mm)": st.column_config.NumberColumn(format="%.1f"),
+                        }
+                    )
+                    
                 except Exception as e:
-                    st.error(f"Error making prediction: {e}")
+                    st.error(f"Error generating recommendations: {e}")
+            else:
+                st.info("No categories available for recommendation.")
 
     st.divider()
     st.markdown(
